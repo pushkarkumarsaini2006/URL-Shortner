@@ -8,6 +8,11 @@ const Shorten = () => {
     const [generated, setGenerated] = useState("")
 
     const generate = () => {
+        if (!url.trim() || !shorturl.trim()) {
+            alert('Please enter both URL and short URL');
+            return;
+        }
+
         const myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
@@ -26,14 +31,19 @@ const Shorten = () => {
         fetch("/api/generate", requestOptions)
             .then((response) => response.json())
             .then((result) => {
-                setGenerated(`${process.env.NEXT_PUBLIC_HOST}/${shorturl}`)
-                seturl("")   
-                setshorturl("")
-                console.log(result)
-                alert(result.message)
-            
+                if (result.success) {
+                    setGenerated(result.shortUrl || `${process.env.NEXT_PUBLIC_HOST || window.location.origin}/${shorturl}`)
+                    seturl("")   
+                    setshorturl("")
+                    alert(result.message)
+                } else {
+                    alert(result.message || 'Error generating short URL')
+                }
             })
-            .catch((error) => console.error(error));
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('Network error. Please try again.');
+            });
     }
 
 
