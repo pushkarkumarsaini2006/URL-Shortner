@@ -56,7 +56,7 @@ BitLinks is a modern, privacy-first URL shortener that makes long URLs manageabl
 
 ## 🚀 Demo
 
-> **🌟 Live Demo**: [**BitLinks URL Shortener**](https://your-deployment-url.vercel.app/) 
+> **🌟 Live Demo**: [**BitLinks URL Shortener**](https://url-shortner-ecru-tau.vercel.app/) 
 > 
 > *Experience fast, privacy-focused URL shortening with no registration required!*
 
@@ -65,13 +65,13 @@ BitLinks is a modern, privacy-first URL shortener that makes long URLs manageabl
 ### 🌐 Quick Deploy
 **Want to deploy instantly?** Deploy to Vercel with one click!
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/yourusername/URL-Shortner)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/pushkarkumarsaini2006/URL-Shortner)
 
 ### Local Development Setup
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/URL-Shortner.git
+   git clone https://github.com/pushkarkumarsaini2006/URL-Shortner.git
    cd URL-Shortner
    ```
 
@@ -84,7 +84,7 @@ BitLinks is a modern, privacy-first URL shortener that makes long URLs manageabl
    Create a `.env.local` file in the root directory:
    ```env
    MONGODB_URI=mongodb://localhost:27017/bitlinks
-   NEXT_PUBLIC_HOST=http://localhost:3000
+   NEXT_PUBLIC_HOST=https://url-shortner-ecru-tau.vercel.app
    ```
 
 4. **Start MongoDB**
@@ -143,7 +143,7 @@ URL-Shortner/
 
 ### URL Redirection
 
-- **Access**: Visit `yourdomain.com/yourshorturl`
+- **Access**: Visit `url-shortner-ecru-tau.vercel.app/yourshorturl`
 - **Redirect**: Automatically redirects to the original URL
 - **Fallback**: Invalid URLs redirect to homepage
 
@@ -151,7 +151,7 @@ URL-Shortner/
 
 #### Create Short URL
 ```bash
-curl -X POST https://yourdomain.com/api/generate \
+curl -X POST https://url-shortner-ecru-tau.vercel.app/api/generate \
   -H "Content-Type: application/json" \
   -d '{
     "url": "https://example.com/long-url",
@@ -175,7 +175,7 @@ curl -X POST https://yourdomain.com/api/generate \
 | Variable | Description | Example |
 |----------|-------------|---------|
 | `MONGODB_URI` | MongoDB connection string | `mongodb://localhost:27017/bitlinks` |
-| `NEXT_PUBLIC_HOST` | Your domain URL | `https://yourdomain.com` |
+| `NEXT_PUBLIC_HOST` | Your domain URL | `https://url-shortner-ecru-tau.vercel.app` |
 
 ### Database Schema
 
@@ -282,7 +282,7 @@ Contributions are welcome! Here's how you can help:
 
 ```bash
 # Clone your fork
-git clone https://github.com/yourusername/URL-Shortner.git
+git clone https://github.com/pushkarkumarsaini2006/URL-Shortner.git
 
 # Install dependencies
 npm install
@@ -309,9 +309,9 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 ## 👨‍💻 Author
 
-**Your Name**
-- GitHub: [@yourusername](https://github.com/yourusername)
-- Email: your.email@example.com
+**Pushkar Kumar Saini**
+- GitHub: [@pushkarkumarsaini2006](https://github.com/pushkarkumarsaini2006)
+- Email: pushkarkumarsaini2006@gmail.com
 
 ## 🙏 Acknowledgments
 
@@ -331,10 +331,10 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 ## 📊 Project Stats
 
-![GitHub stars](https://img.shields.io/github/stars/yourusername/URL-Shortner?style=social)
-![GitHub forks](https://img.shields.io/github/forks/yourusername/URL-Shortner?style=social)
-![GitHub issues](https://img.shields.io/github/issues/yourusername/URL-Shortner)
-![GitHub pull requests](https://img.shields.io/github/issues-pr/yourusername/URL-Shortner)
+![GitHub stars](https://img.shields.io/github/stars/pushkarkumarsaini2006/URL-Shortner?style=social)
+![GitHub forks](https://img.shields.io/github/forks/pushkarkumarsaini2006/URL-Shortner?style=social)
+![GitHub issues](https://img.shields.io/github/issues/pushkarkumarsaini2006/URL-Shortner)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/pushkarkumarsaini2006/URL-Shortner)
 
 ---
 
@@ -342,6 +342,6 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 **⭐ Star this repo if you find it helpful!**
 
-Made with ❤️ by [Your Name](https://github.com/yourusername)
+Made with ❤️ by [Pushkar Kumar Saini](https://github.com/pushkarkumarsaini2006)
 
 </div>
