@@ -45,7 +45,7 @@ export async function POST(request) {
             }, { status: 400 })
         }
 
-        const client = await clientPromise;
+        const client = await clientPromise();
         const db = client.db("bitlinks")
         const collection = db.collection("url")
 

@@ -5,7 +5,7 @@ export default async function Page({ params }) {
     const shorturl = (await params).shorturl
 
     try {
-        const client = await clientPromise;
+        const client = await clientPromise();
         const db = client.db("bitlinks")
         const collection = db.collection("url")
 
