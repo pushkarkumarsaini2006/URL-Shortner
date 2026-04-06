@@ -2,6 +2,24 @@
 import Link from 'next/link'
 import React, { useState } from 'react'
 
+const normalizeGeneratedUrl = (value, fallbackShortCode) => {
+    const rawValue = (value || '').trim()
+    const fixedValue = rawValue
+        .replace(/^ttp:\/\//i, 'http://')
+        .replace(/^ttps:\/\//i, 'https://')
+
+    if (fixedValue) {
+        try {
+            return new URL(fixedValue).toString()
+        } catch {
+            // Fall through to construct a URL from origin and short code.
+        }
+    }
+
+    const safeCode = (fallbackShortCode || '').replace(/^\/+/, '')
+    return `${window.location.origin}/${safeCode}`
+}
+
 const Shorten = () => {
     const [url, seturl] = useState("")
     const [shorturl, setshorturl] = useState("")
@@ -32,7 +50,7 @@ const Shorten = () => {
             .then((response) => response.json())
             .then((result) => {
                 if (result.success) {
-                    setGenerated(result.shortUrl || `${process.env.NEXT_PUBLIC_HOST || window.location.origin}/${shorturl}`)
+                    setGenerated(normalizeGeneratedUrl(result.shortUrl, shorturl))
                     seturl("")   
                     setshorturl("")
                     alert(result.message)

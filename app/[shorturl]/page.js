@@ -12,8 +12,12 @@ export default async function Page({ params }) {
         const doc = await collection.findOne({ shorturl: shorturl })
         
         if (doc && doc.url) {
-            // Ensure the URL has a protocol
+            // Normalize known malformed protocol prefixes before redirect.
             let redirectUrl = doc.url
+                .replace(/^ttp:\/\//i, 'http://')
+                .replace(/^ttps:\/\//i, 'https://')
+
+            // Ensure the URL has a protocol
             if (!redirectUrl.startsWith('http://') && !redirectUrl.startsWith('https://')) {
                 redirectUrl = 'https://' + redirectUrl
             }
