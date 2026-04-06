@@ -6,10 +6,10 @@
     "node": ">=18.0.0"
   },
   "scripts": {
-    "dev": "C:\\Progra~1\\nodejs\\node.exe ./node_modules/next/dist/bin/next dev",
-    "build": "C:\\Progra~1\\nodejs\\node.exe ./node_modules/next/dist/bin/next build",
-    "start": "C:\\Progra~1\\nodejs\\node.exe ./node_modules/next/dist/bin/next start",
-    "lint": "C:\\Progra~1\\nodejs\\node.exe ./node_modules/next/dist/bin/next lint"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
     "mongodb": "^6.10.0",
