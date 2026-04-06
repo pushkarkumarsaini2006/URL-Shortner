@@ -23,10 +23,10 @@ export default async function Page({ params }) {
             }
             redirect(redirectUrl)
         } else {
-            redirect(process.env.NEXT_PUBLIC_HOST || '/')
+            redirect('/')
         }
     } catch (error) {
         console.error('Database error:', error)
-        redirect(process.env.NEXT_PUBLIC_HOST || '/')
+        redirect('/')
     }
 }
