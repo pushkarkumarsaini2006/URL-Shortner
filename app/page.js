@@ -8,6 +8,7 @@ const poppins = localFont({
   src: "./fonts/Poppins-ExtraBold.ttf",
   variable: "--font-poppins",
   weight: "100 900",
+  preload: false,
 });
 
 export default function Home() {
