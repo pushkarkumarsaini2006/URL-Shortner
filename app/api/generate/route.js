@@ -16,26 +16,6 @@ function normalizeBaseUrl(baseUrl, fallbackOrigin) {
     }
 }
 
-function isLocalOrigin(origin) {
-    try {
-        const { hostname } = new URL(origin)
-        return hostname === 'localhost' || hostname === '127.0.0.1'
-    } catch {
-        return false
-    }
-}
-
-function resolvePublicBaseUrl(configuredBaseUrl, requestOrigin) {
-    const normalizedConfigured = normalizeBaseUrl(configuredBaseUrl, requestOrigin)
-
-    // If deployment env accidentally contains localhost, use the actual request origin.
-    if (isLocalOrigin(normalizedConfigured) && !isLocalOrigin(requestOrigin)) {
-        return requestOrigin
-    }
-
-    return normalizedConfigured
-}
-
 export async function POST(request) {
     try {
         const body = await request.json()
@@ -87,7 +67,7 @@ export async function POST(request) {
         })
 
         const requestOrigin = new URL(request.url).origin
-        const baseUrl = resolvePublicBaseUrl(process.env.NEXT_PUBLIC_HOST, requestOrigin)
+        const baseUrl = normalizeBaseUrl(process.env.NEXT_PUBLIC_HOST, requestOrigin)
 
         return Response.json({
             success: true, 

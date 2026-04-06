@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation"
+import { notFound } from "next/navigation"
 import clientPromise from "@/lib/mongodb"
 
 export default async function Page({ params }) {
@@ -23,10 +24,10 @@ export default async function Page({ params }) {
             }
             redirect(redirectUrl)
         } else {
-            redirect('/')
+            notFound()
         }
     } catch (error) {
         console.error('Database error:', error)
-        redirect('/')
+        notFound()
     }
 }
