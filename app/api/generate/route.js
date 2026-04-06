@@ -37,6 +37,7 @@ function resolveBaseUrl(configuredBaseUrl, requestOrigin) {
 export async function POST(request) {
     try {
         const body = await request.json()
+        const requestOrigin = new URL(request.url).origin
         
         // Validate input
         if (!body.url || !body.shorturl) {
@@ -51,6 +52,29 @@ export async function POST(request) {
         let url = body.url
         if (!url.startsWith('http://') && !url.startsWith('https://')) {
             url = 'https://' + url
+        }
+
+        // Prevent self-referential links that just reopen this application.
+        const normalizedBaseUrl = resolveBaseUrl(process.env.NEXT_PUBLIC_HOST, requestOrigin)
+        let targetHostname
+        let appHostname
+        try {
+            targetHostname = new URL(url).hostname.toLowerCase()
+            appHostname = new URL(normalizedBaseUrl).hostname.toLowerCase()
+        } catch {
+            return Response.json({
+                success: false,
+                error: true,
+                message: 'Please enter a valid destination URL'
+            }, { status: 400 })
+        }
+
+        if (targetHostname === appHostname) {
+            return Response.json({
+                success: false,
+                error: true,
+                message: 'Destination URL cannot be this BitLinks domain. Please enter a different website URL.'
+            }, { status: 400 })
         }
 
         // Validate short URL format (alphanumeric and some special chars)
@@ -84,7 +108,6 @@ export async function POST(request) {
             createdAt: new Date()
         })
 
-        const requestOrigin = new URL(request.url).origin
         const baseUrl = resolveBaseUrl(process.env.NEXT_PUBLIC_HOST, requestOrigin)
 
         return Response.json({
