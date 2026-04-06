@@ -34,13 +34,18 @@ function resolveBaseUrl(configuredBaseUrl, requestOrigin) {
     return normalizedConfigured
 }
 
+function normalizeShortCode(value) {
+    return (value || '').trim().toLowerCase()
+}
+
 export async function POST(request) {
     try {
         const body = await request.json()
         const requestOrigin = new URL(request.url).origin
         
         // Validate input
-        if (!body.url || !body.shorturl) {
+        const shortCode = normalizeShortCode(body.shorturl)
+        if (!body.url || !shortCode) {
             return Response.json({
                 success: false, 
                 error: true, 
@@ -79,7 +84,7 @@ export async function POST(request) {
 
         // Validate short URL format (alphanumeric and some special chars)
         const shortUrlRegex = /^[a-zA-Z0-9_-]+$/
-        if (!shortUrlRegex.test(body.shorturl)) {
+        if (!shortUrlRegex.test(shortCode)) {
             return Response.json({
                 success: false, 
                 error: true, 
@@ -92,19 +97,30 @@ export async function POST(request) {
         const collection = db.collection("url")
 
         // Check if the short url already exists
-        const existingDoc = await collection.findOne({ shorturl: body.shorturl })
+        const existingDoc = await collection.findOne({ shorturl: shortCode })
         if (existingDoc) {
+            await collection.updateOne(
+                { _id: existingDoc._id },
+                {
+                    $set: {
+                        url,
+                        updatedAt: new Date()
+                    }
+                }
+            )
+
             return Response.json({
-                success: false, 
-                error: true, 
-                message: 'Short URL already exists! Please choose a different one.'
-            }, { status: 409 })
+                success: true,
+                error: false,
+                message: 'Short URL updated successfully',
+                shortUrl: `${resolveBaseUrl(process.env.NEXT_PUBLIC_HOST, requestOrigin)}/${shortCode}`
+            })
         }
 
         // Insert the new URL
         const result = await collection.insertOne({
             url: url,
-            shorturl: body.shorturl,
+            shorturl: shortCode,
             createdAt: new Date()
         })
 
@@ -114,7 +130,7 @@ export async function POST(request) {
             success: true, 
             error: false, 
             message: 'URL Generated Successfully',
-            shortUrl: `${baseUrl}/${body.shorturl}`
+            shortUrl: `${baseUrl}/${shortCode}`
         })
 
     } catch (error) {

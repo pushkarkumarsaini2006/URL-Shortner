@@ -54,11 +54,13 @@ const Shorten = () => {
                     setshorturl("")
                     alert(result.message)
                 } else {
+                    setGenerated("")
                     alert(result.message || 'Error generating short URL')
                 }
             })
             .catch((error) => {
                 console.error('Error:', error);
+                setGenerated("")
                 alert('Network error. Please try again.');
             });
     }

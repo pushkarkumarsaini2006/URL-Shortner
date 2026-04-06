@@ -3,7 +3,7 @@ import { notFound } from "next/navigation"
 import clientPromise from "@/lib/mongodb"
 
 export default async function Page({ params }) {
-    const shorturl = (await params).shorturl
+    const shorturl = ((await params).shorturl || '').trim().toLowerCase()
 
     try {
         const client = await clientPromise();
