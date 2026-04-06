@@ -135,6 +135,16 @@ export async function POST(request) {
 
     } catch (error) {
         console.error('API Error:', error)
+
+        const errorMessage = typeof error?.message === 'string' ? error.message : ''
+        if (errorMessage.includes('valid Mongo URI')) {
+            return Response.json({
+                success: false,
+                error: true,
+                message: 'Server database is not configured. Set a valid MONGODB_URI in .env.local (local) or Vercel Environment Variables (production).'
+            }, { status: 500 })
+        }
+
         return Response.json({
             success: false, 
             error: true, 
