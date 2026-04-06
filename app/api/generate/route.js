@@ -1,6 +1,21 @@
 
 import clientPromise from "@/lib/mongodb"
 
+function normalizeBaseUrl(baseUrl, fallbackOrigin) {
+    const rawBase = (baseUrl || "").trim()
+    const fixedBase = rawBase
+        .replace(/^ttp:\/\//i, "http://")
+        .replace(/^ttps:\/\//i, "https://")
+
+    if (!fixedBase) return fallbackOrigin
+
+    try {
+        return new URL(fixedBase).origin
+    } catch {
+        return fallbackOrigin
+    }
+}
+
 export async function POST(request) {
     try {
         const body = await request.json()
@@ -30,7 +45,7 @@ export async function POST(request) {
             }, { status: 400 })
         }
 
-        const client = await clientPromise;
+        const client = await clientPromise();
         const db = client.db("bitlinks")
         const collection = db.collection("url")
 
@@ -51,11 +66,14 @@ export async function POST(request) {
             createdAt: new Date()
         })
 
+        const requestOrigin = new URL(request.url).origin
+        const baseUrl = normalizeBaseUrl(process.env.NEXT_PUBLIC_HOST, requestOrigin)
+
         return Response.json({
             success: true, 
             error: false, 
             message: 'URL Generated Successfully',
-            shortUrl: `${process.env.NEXT_PUBLIC_HOST}/${body.shorturl}`
+            shortUrl: `${baseUrl}/${body.shorturl}`
         })
 
     } catch (error) {
