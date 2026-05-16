@@ -27,14 +27,15 @@ export default function Home() {
           <Link href="https://github.com/pushkarkumarsaini2006/URL-Shortner" target="_blank"><button className='bg-purple-500 rounded-lg shadow-lg p-3 py-1 font-bold text-white'>GitHub</button></Link>
         </div>
         </div>
-        <div className=" flex justify-start relative">
+        <div className="flex justify-start relative w-full h-full">
           <Image 
-            className="mix-blend-darken" 
+            className="mix-blend-darken object-cover" 
             alt="an Image of a vector" 
             src={"/vector.jpg"} 
             fill={true}
             priority={true}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            quality={90}
           />
         </div>
 

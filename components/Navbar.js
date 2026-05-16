@@ -8,10 +8,12 @@ const Navbar = () => {
         <Link href="/">BitLinks</Link>
       </div>
       <ul className='flex justify-center gap-4 items-center'>
-        <Link href="/"><li>Home</li></Link>
+        <li>
+          <Link href="/">Home</Link>
+        </li>
         <li className='flex gap-3'>
-          <Link href="/shorten"><button className='bg-purple-500 rounded-lg shadow-lg p-3 py-1 font-bold'>Try Now</button></Link>
-          <Link href="https://github.com/pushkarkumarsaini2006/URL-Shortner" target="_blank"><button className='bg-purple-500 rounded-lg shadow-lg p-3 py-1 font-bold'>GitHub</button></Link>
+          <Link href="/shorten"><button className='bg-purple-500 rounded-lg shadow-lg p-3 py-1 font-bold text-white'>Try Now</button></Link>
+          <Link href="https://github.com/pushkarkumarsaini2006/URL-Shortner" target="_blank"><button className='bg-purple-500 rounded-lg shadow-lg p-3 py-1 font-bold text-white'>GitHub</button></Link>
         </li>
       </ul>
     </nav>
