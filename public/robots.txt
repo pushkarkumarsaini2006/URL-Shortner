@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://url-shortner-ecru-tau.vercel.app/sitemap.xml
